@@ -1,26 +1,13 @@
 
 // ignore_for_file: avoid_print
+import 'dart:convert';
 
+import 'package:http/http.dart' as http;
 import 'package:ontas_smartwatch/environment/environment.dart';
-import 'package:dio/dio.dart';
 
 class ApiService {
 
   String apiUrl = Environment.API_URL;
-
-  late final Dio dio;
-  final String accessToken;
-
-  ApiService({
-    this.accessToken = ""
-  }) : dio = Dio(
-    BaseOptions(
-      baseUrl: Environment.API_URL,
-      headers: {
-        'Authorization': 'Bearer $accessToken'
-      }
-    )
-  );
 
 
   // ***************************************************************
@@ -31,19 +18,16 @@ class ApiService {
   }) async {
     try {
 
-      final Response response = await dio.get(
-        '/smartwatch/token/$smartwatchToken'
+      final response = await http.get(
+        Uri.parse('$apiUrl/smartwatch/token/all?token=$smartwatchToken')
       );
 
-      final data = response.data;
+      final data = jsonDecode(response.body)[0];
       print(data);
     
       if (response.statusCode == 200 || response.statusCode == 201) return data;
       return null;
 
-    } on DioException catch (e) {
-      print(e.toString());
-      return null;
     } catch (e) {
       print(e.toString());
       return null;
@@ -55,19 +39,16 @@ class ApiService {
   }) async {
     try {
 
-      final Response response = await dio.get(
-        '/smartwatch/$smartwatchId'
+      final response = await http.get(
+        Uri.parse('$apiUrl/smartwatch/$smartwatchId')
       );
 
-      final data = response.data;
+      final data = jsonDecode(response.body);
       print(data);
     
       if (response.statusCode == 200 || response.statusCode == 201) return data;
       return null;
 
-    } on DioException catch (e) {
-      print(e.toString());
-      return null;
     } catch (e) {
       print(e.toString());
       return null;
@@ -79,20 +60,18 @@ class ApiService {
   }) async {
     try {
 
-      final Response response = await dio.post(
-        '/smartwatch',
-        data: smartwatchData
+      final response = await http.post(
+        Uri.parse('$apiUrl/smartwatch'),
+        headers: {'Content-Type': 'application/json'},
+        body: smartwatchData
       );
 
-      final data = response.data;
+      final data = jsonDecode(response.body);
       print(data);
     
       if (response.statusCode == 200 || response.statusCode == 201) return true;
       return false;
 
-    } on DioException catch (e) {
-      print(e.toString());
-      return false;
     } catch (e) {
       print(e.toString());
       return false;
@@ -105,20 +84,18 @@ class ApiService {
   }) async {
     try {
 
-      final Response response = await dio.patch(
-        '/smartwatch/$smartwatchId',
-        data: smartwatchData
+      final response = await http.patch(
+        Uri.parse('$apiUrl/smartwatch/$smartwatchId'),
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode(smartwatchData)
       );
 
-      final data = response.data;
+      final data = jsonDecode(response.body);
       print(data);
     
       if (response.statusCode == 200 || response.statusCode == 201) return true;
       return false;
 
-    } on DioException catch (e) {
-      print(e.toString());
-      return false;
     } catch (e) {
       print(e.toString());
       return false;
@@ -130,19 +107,16 @@ class ApiService {
   }) async {
     try {
 
-      final Response response = await dio.delete(
-        '/smartwatch/$smartwatchId'
+      final response = await http.delete(
+        Uri.parse('$apiUrl/smartwatch/$smartwatchId'),
       );
 
-      final data = response.data;
+      final data = jsonDecode(response.body);
       print(data);
     
       if (response.statusCode == 200 || response.statusCode == 201) return true;
       return false;
 
-    } on DioException catch (e) {
-      print(e.toString());
-      return false;
     } catch (e) {
       print(e.toString());
       return false;
@@ -157,19 +131,16 @@ class ApiService {
   }) async {
     try {
 
-      final Response response = await dio.get(
-        '/smartphone/$smartphoneId'
+      final response = await http.get(
+        Uri.parse('$apiUrl/smartphone/$smartphoneId'),
       );
 
-      final data = response.data;
-      print(data);
+      final data = jsonDecode(response.body);
+      // print(data);
     
       if (response.statusCode == 200 || response.statusCode == 201) return data;
       return null;
 
-    } on DioException catch (e) {
-      print(e.toString());
-      return null;
     } catch (e) {
       print(e.toString());
       return null;
@@ -181,20 +152,18 @@ class ApiService {
   }) async {
     try {
 
-      final Response response = await dio.post(
-        '/smartphone',
-        data: smartphoneData
+      final response = await http.post(
+        Uri.parse('$apiUrl/smartphone'),
+        headers: {'Content-Type': 'application/json'},
+        body: smartphoneData
       );
 
-      final data = response.data;
+      final data = jsonDecode(response.body);
       print(data);
     
       if (response.statusCode == 200 || response.statusCode == 201) return true;
       return false;
 
-    } on DioException catch (e) {
-      print(e.toString());
-      return false;
     } catch (e) {
       print(e.toString());
       return false;
@@ -207,20 +176,18 @@ class ApiService {
   }) async {
     try {
 
-      final Response response = await dio.patch(
-        '/smartphone/$smartphoneId',
-        data: smartphoneData
+      final response = await http.patch(
+        Uri.parse('$apiUrl/smartphone/$smartphoneId'),
+        headers: {'Content-Type': 'application/json'},
+        body: smartphoneData
       );
 
-      final data = response.data;
+      final data = jsonDecode(response.body);
       print(data);
     
       if (response.statusCode == 200 || response.statusCode == 201) return true;
       return false;
 
-    } on DioException catch (e) {
-      print(e.toString());
-      return false;
     } catch (e) {
       print(e.toString());
       return false;
@@ -232,19 +199,16 @@ class ApiService {
   }) async {
     try {
 
-      final Response response = await dio.delete(
-        '/smartphone/$smartphoneId'
+      final response = await http.delete(
+        Uri.parse('$apiUrl/smartphone/$smartphoneId'),
       );
 
-      final data = response.data;
+      final data = jsonDecode(response.body);
       print(data);
     
       if (response.statusCode == 200 || response.statusCode == 201) return true;
       return false;
 
-    } on DioException catch (e) {
-      print(e.toString());
-      return false;
     } catch (e) {
       print(e.toString());
       return false;

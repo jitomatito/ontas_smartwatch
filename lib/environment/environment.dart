@@ -3,6 +3,6 @@
 
 class Environment {
 
-  static String API_URL = 'https://api.carewatch-en-equipo.com';
+  static String API_URL = 'https://api.yisus44.net/api/v1';
 
 }

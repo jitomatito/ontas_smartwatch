@@ -95,20 +95,7 @@ class _HomeScreenState extends State<HomeScreen> {
       smartwatchId: smartwatchId
     );
 
-    // MOCK
-    /* final smartwatchData = {
-      "id": 23,
-      "smartphoneId": 12,
-      "childName": 'Pepito',
-      "currentLat": 21.6512,
-      "currentLong": -104.4316,
-      "referenceLat": 20.6512, // casa de sari
-      "referenceLong": -103.4316, // casa de sari
-      "maxRadio": 500, // mts
-      "token": 'RtYzZN',
-    }; */
-
-    if (smartwatchData != null /* true */) {
+    if (smartwatchData != null) {
 
       Smartwatch smartwatchModel = Smartwatch.fromJson(smartwatchData);
     
@@ -116,13 +103,7 @@ class _HomeScreenState extends State<HomeScreen> {
         smartphoneId: smartwatchModel.smartphoneId
       );
 
-      // MOCK
-      /* final smartphoneData = {
-        "id": 55,
-        "phoneNumber": "3323234545",
-      }; */
-
-      if (smartphoneData != null /* true */) {
+      if (smartphoneData != null) {
 
         Smartphone smartphoneModel = Smartphone.fromJson(smartphoneData);
 
@@ -258,7 +239,7 @@ class _HomeViewState extends State<HomeView> {
             ),
             const SizedBox(height: 10),
             Text(
-              widget.smartwatch.childName, 
+              widget.smartwatch.childName ?? '???', 
               textAlign: TextAlign.center, maxLines: 1,
               style: const TextStyle(fontSize: 12),
             ),
@@ -322,7 +303,7 @@ class _HomeViewState extends State<HomeView> {
     if (smartwatchId != null) {
 
       Map<String, dynamic> smartwatchLike = widget.smartwatch.toJson();
-      smartwatchLike.update('active', (value) => 0);
+      smartwatchLike.update('active', (value) => false);
 
       final success = await ApiService().patchSmartwatch(
         smartwatchId: widget.smartwatch.id, 
@@ -376,7 +357,7 @@ class _HomeViewState extends State<HomeView> {
 
         setState(() { });
 
-        // sendToApi();
+        sendToApi();
 
         break;
       default:

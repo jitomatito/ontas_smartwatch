@@ -3,13 +3,14 @@ class Smartwatch {
 
   int id;
   int smartphoneId;
-  String childName;
-  double currentLat;
-  double currentLong;
-  double referenceLat;
-  double referenceLong;
-  int maxRadio;
+  String? childName;
+  double? currentLat;
+  double? currentLong;
+  double? referenceLat;
+  double? referenceLong;
+  int? maxDistanceRadio;
   String token;
+  bool active;
 
   Smartwatch({
     required this.id,
@@ -19,8 +20,9 @@ class Smartwatch {
     required this.currentLong,
     required this.referenceLat,
     required this.referenceLong,
-    required this.maxRadio,
-    required this.token
+    required this.maxDistanceRadio,
+    required this.token,
+    required this.active
   });
 
   static Smartwatch fromJson(Map<String, dynamic> map) {
@@ -32,22 +34,24 @@ class Smartwatch {
       currentLong: map["currentLong"], 
       referenceLat: map["referenceLat"], 
       referenceLong: map["referenceLong"], 
-      maxRadio: map["maxRadio"], 
-      token: map["token"]
+      maxDistanceRadio: map["maxDistanceRadio"], 
+      token: map["token"],
+      active: map["active"]
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
-      "id": id,
-      "smartphoneId": smartphoneId,
+      //"id": id,
+      //"smartphoneId": smartphoneId,
       "childName": childName,
       "currentLat": currentLat, 
       "currentLong": currentLong,
       "referenceLat": referenceLat,
       "referenceLong": referenceLong,
-      "maxRadio": maxRadio,
+      "maxDistanceRadio": maxDistanceRadio,
       "token": token,
+      "active": active
     };
   }
 

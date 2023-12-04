@@ -1,4 +1,4 @@
-// ignore_for_file: library_private_types_in_public_api, use_build_context_synchronously
+// ignore_for_file: library_private_types_in_public_api, use_build_context_synchronously, avoid_print
 
 import 'package:flutter/material.dart';
 import 'package:ontas_smartwatch/screen/home_screen.dart';
@@ -319,20 +319,7 @@ class _EnterTokenScreenState extends State<EnterTokenScreen> {
         smartwatchToken: _smartwatchTokenController.text
       );
 
-      // MOCK
-      /* final smartwatchData = {
-        "id": 23,
-        "smartphoneId": 12,
-        "childName": 'Pepito',
-        "currentLat": 21.6512,
-        "currentLong": -104.4316,
-        "referenceLat": 20.6512, // casa de sari
-        "referenceLong": -103.4316, // casa de sari
-        "maxRadio": 500, // mts
-        "token": 'RtYzZN',
-      }; */
-
-      if (smartwatchData != null /* true */) { // if exists
+      if (smartwatchData != null) { // if exists
 
         Smartwatch smartwatch = Smartwatch.fromJson(smartwatchData);
 
@@ -341,12 +328,9 @@ class _EnterTokenScreenState extends State<EnterTokenScreen> {
           smartwatchId: smartwatch.id,
           smartwatchData: {
             "childName": _childNameController.text,
-            "active": 1
+            "active": true
           }
         );
-
-        // MOCK
-        /* const success = true; */
 
         if (success) {
           final prefs = await SharedPreferences.getInstance();
@@ -372,7 +356,7 @@ class _EnterTokenScreenState extends State<EnterTokenScreen> {
       } */
 
     } catch (e) {
-      // 
+      print(e.toString());
     }
   }
 
