@@ -158,21 +158,20 @@ class _HomeViewState extends State<HomeView> {
       child: Column(
         children: [
 
-          const SizedBox(height: 20),
+          const SizedBox(height: 10),
 
           CarouselSlider(
             options: CarouselOptions(
-              height: MediaQuery.of(context).size.width - 40.0,
+              height: MediaQuery.of(context).size.width - 20.0,
               viewportFraction: 1.2,
             ),
             items: List.generate(4, (index) => index).map((int index) {
 
               return Container(
-                width: MediaQuery.of(context).size.width - 40.0,
-                height: MediaQuery.of(context).size.width - 40.0,
-                margin: const EdgeInsets.symmetric(horizontal: 5.0),
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.width,
                 decoration: BoxDecoration(
-                  color: Colors.deepPurple.withOpacity(0.3),
+                  color:  const Color.fromARGB(255, 90, 114, 247).withOpacity(0.3),
                   shape: BoxShape.circle,
                 ),
                 alignment: Alignment.center,
@@ -208,87 +207,111 @@ class _HomeViewState extends State<HomeView> {
     if (index == 0) {
 
       return SizedBox(
-        child: Column(
-          children: [
-            const SizedBox(height: 40),
-            const Text(
-              "Número del padre/madre de familia", 
-              textAlign: TextAlign.center, maxLines: 1,
-              style: TextStyle(fontSize: 12),
-            ),
-            const SizedBox(height: 10),
-            Text(
-              widget.smartphone.phoneNumber, 
-              textAlign: TextAlign.center, maxLines: 1,
-              style: const TextStyle(fontSize: 12),
-            ),
-          ],
+        child: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Column(
+            children: [
+              const SizedBox(height: 40),
+              const Icon(Icons.phone),
+              const Text(
+                "Teléfono del tutor", 
+                textAlign: TextAlign.center, maxLines: 1,
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 10),
+              Text(
+                widget.smartphone.phoneNumber, 
+                textAlign: TextAlign.center, maxLines: 1,
+                style: const TextStyle(fontSize: 12),
+              ),
+            ],
+          ),
         ),
       );
     }
     else if (index == 1) {
 
       return SizedBox(
-        child: Column(
-          children: [
-            const SizedBox(height: 40),
-            const Text(
-              "Nombre del niño", 
-              textAlign: TextAlign.center, maxLines: 1,
-              style: TextStyle(fontSize: 12),
-            ),
-            const SizedBox(height: 10),
-            Text(
-              widget.smartwatch.childName ?? '???', 
-              textAlign: TextAlign.center, maxLines: 1,
-              style: const TextStyle(fontSize: 12),
-            ),
-          ],
+        child: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Column(
+            children: [
+              const SizedBox(height: 40),
+              const Icon(Icons.child_care),
+              const Text(
+                "Nombre del niño", 
+                textAlign: TextAlign.center, maxLines: 1,
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 10),
+              Text(
+                widget.smartwatch.childName ?? '???', 
+                textAlign: TextAlign.center, maxLines: 1,
+                style: const TextStyle(fontSize: 12),
+              ),
+            ],
+          ),
         ),
       );
     }
     else if (index == 2) {
       if (currentCoordinate == null) {
-        return const Text("- Sin coordenadas -");
+        return const Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(Icons.location_on),
+            Text("- Sin coordenadas -"),
+          ],
+        );
       }
 
       return SizedBox(
-        child: Column(
-          children: [
-            const SizedBox(height: 40),
-            Text(
-              "Latitud: ${double.parse(currentCoordinate!.latitude.toStringAsFixed(4))}", 
-              textAlign: TextAlign.center, maxLines: 1,
-              style: const TextStyle(fontSize: 12),
-            ),
-            const SizedBox(height: 10),
-            Text(
-              "Longitud: ${double.parse(currentCoordinate!.longitude.toStringAsFixed(4))}", 
-              textAlign: TextAlign.center, maxLines: 1,
-              style: const TextStyle(fontSize: 12),
-            ),
-          ],
+        child: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Column(
+            children: [
+              const SizedBox(height: 20),
+              const Icon(Icons.location_on),
+              const SizedBox(height: 15),
+              Text(
+                "Latitud: ${double.parse(currentCoordinate!.latitude.toStringAsFixed(4))}", 
+                textAlign: TextAlign.center, maxLines: 1,
+                style: const TextStyle(fontSize: 12),
+              ),
+              const SizedBox(height: 10),
+              Text(
+                "Longitud: ${double.parse(currentCoordinate!.longitude.toStringAsFixed(4))}", 
+                textAlign: TextAlign.center, maxLines: 1,
+                style: const TextStyle(fontSize: 12),
+              ),
+            ],
+          ),
         ),
       );
     }
     else {
 
       return SizedBox(
-        child: Column(
-          children: [
-            const SizedBox(height: 40),
-            const Text(
-              "id smartwatch", 
-              textAlign: TextAlign.center, maxLines: 1,
-              style: TextStyle(fontSize: 12),
-            ),
-            const SizedBox(height: 10),
-            Text(
-              widget.smartwatch.id.toString(), 
-              textAlign: TextAlign.center, maxLines: 1,
-              style: const TextStyle(fontSize: 12),
-            ),
-          ],
+        child: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Column(
+            children: [
+              const SizedBox(height: 20),
+              const Icon(Icons.watch),
+              const SizedBox(height: 10),
+              const Text(
+                "id smartwatch", 
+                textAlign: TextAlign.center, maxLines: 1,
+                style: TextStyle(fontSize: 12),
+              ),
+              const SizedBox(height: 10),
+              Text(
+                widget.smartwatch.id.toString(), 
+                textAlign: TextAlign.center, maxLines: 1,
+                style: const TextStyle(fontSize: 12),
+              ),
+            ],
+          ),
         ),
       );
     }
